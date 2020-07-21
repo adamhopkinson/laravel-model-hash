@@ -4,5 +4,5 @@ docs
 vendor
 .idea
 phpcs.xml
-phpunit.xml
+#phpunit.xml
 .phpunit.result.cache
