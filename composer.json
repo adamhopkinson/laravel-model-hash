@@ -1,0 +1,41 @@
+{
+  "name": "adamhopkinson/laravel-model-key",
+  "description": "A trait which automatically generates a unique hash per model instance",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "laravel",
+    "trait",
+    "model",
+    "key",
+    "id"
+  ],
+  "authors": [
+    {
+      "name": "Adam Hopkinson",
+      "email": "adam.hopkinson@gmail.com"
+    }
+  ],
+  "require": {},
+  "require-dev": {
+    "orchestra/testbench": "^4.0",
+    "phpunit/phpunit": "^9.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "AdamHopkinson\\LaravelModelKey\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AdamHopkinson\\LaravelModelKey\\Tests\\": "tests"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "AdamHopkinson\\LaravelModelKey\\LaravelModelKeyServiceProvider"
+      ]
+    }
+  }
+}
