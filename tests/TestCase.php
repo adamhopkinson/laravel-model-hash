@@ -1,8 +1,10 @@
 <?php
 
-namespace AdamHopkinson\LaravelModelKey\Tests;
+namespace AdamHopkinson\LaravelModelHash\Tests;
 
-use AdamHopkinson\LaravelModelKey\LaravelModelKeyServiceProvider;
+use AdamHopkinson\LaravelModelHash\LaravelModelHashServiceProvider;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Illuminate\Database\Schema\Blueprint;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -16,7 +18,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     protected function getPackageProviders($app)
     {
         return [
-            LaravelModelKeyServiceProvider::class,
+            LaravelModelHashServiceProvider::class,
         ];
     }
 

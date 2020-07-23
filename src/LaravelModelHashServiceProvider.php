@@ -1,23 +1,23 @@
 <?php
 
-namespace AdamHopkinson\LaravelModelKey;
+namespace AdamHopkinson\LaravelModelHash;
 
 use Illuminate\Support\ServiceProvider;
 
-class LaravelModelKeyServiceProvider extends ServiceProvider
+class LaravelModelHashServiceProvider extends ServiceProvider
 {
     public function register()
     {
         $this->publishes(
             [
-                __DIR__ . '/../config/config.php' => config_path('laravelmodelkey.php'),
+                __DIR__ . '/../config/config.php' => config_path('laravelmodelhash.php'),
             ],
             'config'
         );
 
         $this->mergeConfigFrom(
             __DIR__ . '/../config/config.php',
-            'laravelmodelkey'
+            'laravelmodelhash'
         );
     }
 

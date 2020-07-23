@@ -1,8 +1,7 @@
 <?php
 
-namespace AdamHopkinson\LaravelModelKey\Tests\Models;
+namespace AdamHopkinson\LaravelModelHash\Tests\Models;
 
-//use AdamHopkinson\LaravelModelKey\
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
