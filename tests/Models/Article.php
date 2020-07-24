@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-
     use ModelHash;
 
     /** @var bool */
@@ -18,5 +17,4 @@ class Article extends Model
 
     /** @var string */
     protected $table = 'articles';
-
 }

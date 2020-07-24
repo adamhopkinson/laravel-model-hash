@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AdamHopkinson\LaravelModelHash\Tests;
 
-use AdamHopkinson\LaravelModelHash\Tests\TestCase;
 use AdamHopkinson\LaravelModelHash\Tests\Models\Article;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -14,6 +13,7 @@ class TraitTest extends TestCase
 
     /**
      * @test
+     *
      * @throws \Exception
      */
     public function article_is_created()
@@ -25,6 +25,7 @@ class TraitTest extends TestCase
 
     /**
      * @test
+     *
      * @throws \Exception
      */
     public function hash_is_not_null()
@@ -34,18 +35,17 @@ class TraitTest extends TestCase
 
     /**
      * @test
+     *
      * @throws \Exception
      */
     public function hashes_are_unique()
     {
         $iterations = 1000; //rand(10,20);
-        foreach(range(1, $iterations) as $iteration) {
+        foreach (range(1, $iterations) as $iteration) {
             Article::create();
         }
 
         $uniqueHashes = Article::all()->groupBy('hash')->count();
         $this->assertEquals($iterations, $uniqueHashes);
     }
-
-
 }

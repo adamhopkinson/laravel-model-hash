@@ -10,13 +10,13 @@ class LaravelModelHashServiceProvider extends ServiceProvider
     {
         $this->publishes(
             [
-                __DIR__ . '/../config/config.php' => config_path('laravelmodelhash.php'),
+                __DIR__.'/../config/config.php' => config_path('laravelmodelhash.php'),
             ],
             'config'
         );
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/config.php',
+            __DIR__.'/../config/config.php',
             'laravelmodelhash'
         );
     }
