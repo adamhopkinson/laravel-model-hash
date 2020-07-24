@@ -3,7 +3,6 @@
 namespace AdamHopkinson\LaravelModelHash\Tests;
 
 use AdamHopkinson\LaravelModelHash\LaravelModelHashServiceProvider;
-use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Illuminate\Database\Schema\Blueprint;
 
 class TestCase extends \Orchestra\Testbench\TestCase
@@ -27,9 +26,9 @@ class TestCase extends \Orchestra\Testbench\TestCase
         $app['config']->set('database.default', 'sqlite');
 
         $app['config']->set('database.connections.sqlite', [
-            'driver' => 'sqlite',
+            'driver'   => 'sqlite',
             'database' => ':memory:',
-            'prefix' => '',
+            'prefix'   => '',
         ]);
 
         $app['db']->connection()->getSchemaBuilder()->create('articles', function (Blueprint $table) {
