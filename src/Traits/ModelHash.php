@@ -23,7 +23,7 @@ trait ModelHash
             $alphabet = $model->getHashAlphabet();
 
             // get the maximum number of attempts to check for uniqueness
-            $maxAttempts = $model->getHashMaximumAttempts()
+            $maxAttempts = $model->getHashMaximumAttempts();
 
             // keep a count of the number of attempts
             $attempts = 0;
