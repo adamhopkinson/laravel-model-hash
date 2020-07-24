@@ -1,4 +1,4 @@
-name: PHP Composer Build & Testing
+name: Build & Test Status
 
 on:
   push:
