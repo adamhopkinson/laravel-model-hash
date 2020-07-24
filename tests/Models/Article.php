@@ -2,10 +2,13 @@
 
 namespace AdamHopkinson\LaravelModelHash\Tests\Models;
 
+use AdamHopkinson\LaravelModelHash\Traits\ModelHash;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+
+    use ModelHash;
 
     /** @var bool */
     public $timestamps = false;
