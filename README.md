@@ -2,6 +2,8 @@
 
 Automatically create short hashes for your Laravel models.
 
+![Build & Test Status](https://github.com/adamhopkinson/laravel-model-hash/workflows/Build%20&%20Test%20Status/badge.svg)
+
 ## Why?
 
 Database IDs in URLs such as [stackoverflow.com/users/12280](https://stackoverflow.com/users/12280) never quite feel ok to me
