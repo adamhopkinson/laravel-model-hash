@@ -14,34 +14,40 @@ trait ModelHash
         static::creating(function ($model) {
 
             // get the name of the property to use for the hash
-            // first check to see if the model has a setter
+            // first check to see if the model has a property
             // then fallback to the default value from config
-            if(method_exists($model, 'getHashName')) {
-                $name = $model->getHashName();
+            if(property_exists($model, 'hashName')) {
+                $name = $model->hashName;
             } else {
                 $name = config('laravelmodelhash.default_name');
             }
 
             // get the length of the hash
-            // first check to see if the model has a setter
+            // first check to see if the model has a property
             // then fallback to the default value from config
-            if(method_exists($model, 'getHashLength')) {
-                $length = $model->getHashLength();
+            if(property_exists($model, 'hashLength')) {
+                $length = $model->hashLength;
             } else {
                 $length = config('laravelmodelhash.default_length');
             }
 
             // get the alphabet to use for the hash
-            // first check to see if the model has a setter
+            // first check to see if the model has a property
             // then fallback to the default value from config
-            if(method_exists($model, 'getHashAlphabet')) {
-                $alphabet = $model->getHashAlphabet();
+            if(property_exists($model, 'hashAlphabet')) {
+                $alphabet = $model->hashAlphabet;
             } else {
                 $alphabet = config('laravelmodelhash.default_alphabet');
             }
 
-            // get the maximum number of attempts from the config
-            $maxAttempts = config('laravelmodelhash.maximum_attempts');
+            // get the maximum number of attempts to check for uniqueness
+            // first check to see if the model has a property
+            // then fallback to the default value from config
+            if(property_exists($model, 'hashMaximumAttempts')) {
+                $maxAttempts = $model->hashMaximumAttempts;
+            } else {
+                $maxAttempts = config('laravelmodelhash.maximum_attempts');
+            }
 
             // keep a count of the number of attempts
             $attempts = 0;
@@ -89,7 +95,11 @@ trait ModelHash
 
     public function getRouteKeyName()
     {
-        $useHashInRoute = config('laravelmodelhash.use_hash_in_route');
+        if(property_exists($this, 'useHashInRoute')) {
+            $useHashInRoute = $this->useHashInRoute;
+        } else {
+            $useHashInRoute = config('laravelmodelhash.use_hash_in_route');
+        }
 
         if(!$useHashInRoute) {
             return 'id';
