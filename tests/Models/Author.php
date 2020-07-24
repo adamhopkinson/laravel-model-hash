@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Author extends Model
 {
-
     use ModelHash;
 
     /** @var bool */
@@ -24,5 +23,4 @@ class Author extends Model
     protected $hashAlphabet = 'abcdefghj12345'; // string
     protected $hashMaximumAttempts = 20; // int
     protected $useHashInRoutes = false; // boolean
-
 }
