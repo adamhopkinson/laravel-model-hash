@@ -35,5 +35,10 @@ class TestCase extends \Orchestra\Testbench\TestCase
             $table->increments('id');
             $table->string('hash', 5);
         });
+
+        $app['db']->connection()->getSchemaBuilder()->create('authors', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('key', 6);
+        });
     }
 }

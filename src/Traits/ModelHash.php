@@ -53,14 +53,17 @@ trait ModelHash
                 }
             } while (($alreadyTried || $hits > 0) && $attempts < $maxAttempts);
 
-            if ($model->hash == null) {
+            if ($model->{$name} == null) {
                 // if we didn't manage to find a hash, throw an error to prevent the instance being created with a hash
                 throw new UniqueHashNotFoundException(sprintf(
-                    'Could not find a hash for new %s after %d attempts. Required hash length is %d; alphabet length is %d - consider increasing the maximum number of attempts, the length of either the hash or the alphabet size',
+                    'Could not find a hash for new %s after %d/%d attempts. Hash name is %s; required hash length is %d; alphabet length is %d; last hash attempted was %s - consider increasing the maximum number of attempts, the length of either the hash or the alphabet size.',
                     get_class($model),
                     $attempts,
+                    $maxAttempts,
+                    $name,
                     $length,
-                    strlen($alphabet)
+                    strlen($alphabet),
+                    $hash
                 ));
             }
         });
@@ -122,15 +125,23 @@ trait ModelHash
         }
     }
 
+    /*
+     * get the use_hash_in_routes boolean
+     * first check to see if the model has a property
+     * then fallback to the default value from config
+     */
+    public function getUseHashInRoutes()
+    {
+        if (property_exists($this, 'useHashInRoutes')) {
+            return $this->useHashInRoutes;
+        } else {
+            return config('laravelmodelhash.use_hash_in_routes');
+        }
+    }
+
     public function getRouteKeyName()
     {
-        if (property_exists($this, 'useHashInRoute')) {
-            $useHashInRoute = $this->useHashInRoute;
-        } else {
-            $useHashInRoute = config('laravelmodelhash.use_hash_in_route');
-        }
-
-        if (!$useHashInRoute) {
+        if (!$this->getUseHashInRoutes()) {
             return 'id';
         } else {
             // get the name of the property to use for the hash
