@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace AdamHopkinson\LaravelModelHash\Tests;
 
+use AdamHopkinson\LaravelModelHash\Exceptions\InvalidCharactersInAlphabet;
 use AdamHopkinson\LaravelModelHash\Tests\Models\Article;
 use AdamHopkinson\LaravelModelHash\Tests\Models\Author;
+use AdamHopkinson\LaravelModelHash\Tests\Models\Book;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TraitTest extends TestCase
@@ -85,5 +87,16 @@ class TraitTest extends TestCase
         $this->assertNotEquals($author->getHashAlphabet(), config('laravelmodelhash.default_alphabet'));
         $this->assertNotEquals($author->getHashMaximumAttempts(), config('laravelmodelhash.maximum_attempts'));
         $this->assertNotEquals($author->getUseHashInRoutes(), config('laravelmodelhash.use_hash_in_routes'));
+    }
+
+    /**
+     * @test
+     *
+     * @throws \Exception
+     */
+    public function throws_error_with_invalid_characters_in_alphabet()
+    {
+        $this->expectException(InvalidCharactersInAlphabet::class);
+        Book::create($record = []);
     }
 }

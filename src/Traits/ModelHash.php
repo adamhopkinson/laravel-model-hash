@@ -2,8 +2,9 @@
 
 namespace AdamHopkinson\LaravelModelHash\Traits;
 
+use AdamHopkinson\LaravelModelHash\Exceptions\InvalidCharactersInAlphabet;
 use AdamHopkinson\LaravelModelHash\Exceptions\UniqueHashNotFoundException;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 trait ModelHash
 {
@@ -105,6 +106,10 @@ trait ModelHash
     public function getHashAlphabet()
     {
         if (property_exists($this, 'hashAlphabet')) {
+            if (Str::contains($this->hashAlphabet, ['?', '#', ':', '/', '?', '#', '[', ']', '@', '!', '$', '&', '(', ')', '*', '+', ',', ';', '='])) {
+                throw new InvalidCharactersInAlphabet('Invalid Characters have been found in your alphabet. These must be removed before continuing.');
+            }
+
             return $this->hashAlphabet;
         } else {
             return config('laravelmodelhash.default_alphabet');
