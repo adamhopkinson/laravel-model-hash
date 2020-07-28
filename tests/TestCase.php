@@ -33,12 +33,17 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
         $app['db']->connection()->getSchemaBuilder()->create('articles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('hash', 5);
+            $table->string('hash', 5)->unique()->index();
         });
 
         $app['db']->connection()->getSchemaBuilder()->create('authors', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('key', 6);
+            $table->string('key', 6)->unique()->index();
+        });
+
+        $app['db']->connection()->getSchemaBuilder()->create('books', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('hash', 6)->unique()->index();
         });
     }
 }

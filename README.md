@@ -54,8 +54,10 @@ class MyModel extends Model
 And create a migration to add a field to store the hash - by default, the field is called `hash` and has a length of 5:
 
 ```
-$table->string('hash', 5);
+$table->string('hash', 5)->unique()->index();
 ```
+
+You may add a unique and index flag for database performance improvements
 
 When new instances of the model are created, they will be assigned a random string.
 
