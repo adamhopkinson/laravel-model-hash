@@ -3,6 +3,7 @@
 namespace AdamHopkinson\LaravelModelHash;
 
 use Illuminate\Support\ServiceProvider;
+use AdamHopkinson\LaravelModelHash\Console;
 
 class LaravelModelHashServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,10 @@ class LaravelModelHashServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        //
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                InstallLaravelModelHash::class,
+            ]);
+        }
     }
 }
