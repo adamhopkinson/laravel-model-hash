@@ -4,7 +4,7 @@ namespace AdamHopkinson\LaravelModelHash\Console;
 
 use Illuminate\Console\Command;
 
-class InstallLaravelModelHash extends Command
+class InstallLaravelModelHashPackage extends Command
 {
     protected $signature = 'laravelmodelhash:install';
 
