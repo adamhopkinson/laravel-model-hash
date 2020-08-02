@@ -2,8 +2,8 @@
 
 namespace AdamHopkinson\LaravelModelHash;
 
-use Illuminate\Support\ServiceProvider;
 use AdamHopkinson\LaravelModelHash\Console\InstallLaravelModelHashPackage;
+use Illuminate\Support\ServiceProvider;
 
 class LaravelModelHashServiceProvider extends ServiceProvider
 {

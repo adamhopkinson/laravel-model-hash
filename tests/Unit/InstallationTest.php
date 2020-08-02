@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\File;
 class InstallationTest extends TestCase
 {
     /** @test */
-    function the_install_command_copies_the_configuration()
+    public function the_install_command_copies_the_configuration()
     {
         // make sure we're starting from a clean state
         if (File::exists(config_path('laravelmodelhash.php'))) {
