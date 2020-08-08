@@ -3,6 +3,7 @@
 namespace AdamHopkinson\LaravelModelHash;
 
 use AdamHopkinson\LaravelModelHash\Console\InstallLaravelModelHashPackage;
+use AdamHopkinson\LaravelModelHash\Console\PopulateModels;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelModelHashServiceProvider extends ServiceProvider
@@ -27,6 +28,7 @@ class LaravelModelHashServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallLaravelModelHashPackage::class,
+                PopulateModels::class,
             ]);
         }
     }

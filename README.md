@@ -57,9 +57,24 @@ And create a migration to add a field to store the hash - by default, the field 
 $table->string('hash', 5)->unique()->index();
 ```
 
-You may add a unique and index flag for database performance improvements
+You may add a unique and index flag for database performance improvements. If you're adding this trait to an existing model, you will need to use `nullable()` until all records have a hash.
 
-When new instances of the model are created, they will be assigned a random string.
+Now, when new instances of the model are created, they will be assigned a random string.
+
+### Adding hashes to existing models
+If you are adding this package to an existing installation, there is an artisan command to 'backfill' existing models. The syntax is:
+
+```
+php artisan laravelmodelhash:populate
+```
+
+This uses reflection to find all models (in `app_path()`) which extend the `ModelHash` trait, and adds hash values to any records where the hash is currently `null`.
+
+If you would like to only run this for a specific model, use the `--model` (or `-M`) option - but *remember to double-slash the namespace*: 
+
+```
+php artisan laravelmodelhash:populate --model \\App\\MyModel
+```
 
 ## Configuration
 
