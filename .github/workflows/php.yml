@@ -35,6 +35,3 @@ jobs:
 
     - name: Run test suite
       run: vendor/bin/phpunit
-
-    - name: Run static analysis
-      run: vendor/bin/psalm
