@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AdamHopkinson\LaravelModelHash\Tests;
 
 use AdamHopkinson\LaravelModelHash\Tests\Models\Page;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ArtisanTest extends TestCase
@@ -22,14 +21,12 @@ class ArtisanTest extends TestCase
         // instances to create
         $instances = 1000;
 
-        foreach(range(1,$instances) as $i) {
+        foreach (range(1, $instances) as $i) {
             $p = new Page();
             $p->hash = null;
             $p->save();
         }
 
         $this->assertEquals($instances, Page::whereNotNull('hash')->count());
-
     }
-
 }

@@ -4,27 +4,27 @@ namespace AdamHopkinson\LaravelModelHash\Traits;
 
 use AdamHopkinson\LaravelModelHash\Exceptions\InvalidCharactersInAlphabet;
 use AdamHopkinson\LaravelModelHash\Exceptions\UniqueHashNotFoundException;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 trait ModelHash
 {
     public static function bootModelHash()
     {
-    // call this function when the _creating_ model event is fired
+        // call this function when the _creating_ model event is fired
         static::creating(function ($model) {
             $model->makeAndAssignHash($model);
         });
     }
 
-    public function makeAndAssignHash(Model $model = null): bool {
-
+    public function makeAndAssignHash(Model $model = null): bool
+    {
         $model = ($model == null) ? $this : $model;
 
         // get the name of the property to use for the hash
         $name = $model->getHashName();
 
-        if($model->{$name} != null) {
+        if ($model->{$name} != null) {
             return true;
         }
 
@@ -80,6 +80,7 @@ trait ModelHash
                 $hash
             ));
         }
+
         return true;
     }
 

@@ -5,7 +5,6 @@ namespace AdamHopkinson\LaravelModelHash\Console;
 use Illuminate\Console\Command;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 
 class PopulateModels extends Command
@@ -25,9 +24,11 @@ class PopulateModels extends Command
         $models = collect(File::allFiles(app_path()))
             ->map(function ($item) {
                 $path = $item->getRelativePathName();
-                $class = sprintf('\%s%s',
+                $class = sprintf(
+                    '\%s%s',
                     Container::getInstance()->getNamespace(),
-                    strtr(substr($path, 0, strrpos($path, '.')), '/', '\\'));
+                    strtr(substr($path, 0, strrpos($path, '.')), '/', '\\')
+                );
 
                 return $class;
             })
@@ -45,7 +46,6 @@ class PopulateModels extends Command
             });
 
         return $models->values();
-
     }
 
     /*
@@ -54,14 +54,16 @@ class PopulateModels extends Command
      * @param   string  $model  The name of the model to populate
      * @output  void
      */
+
     /**
      * @param class-string $model
      */
     private function doPopulateModel(string $model)
     {
         $instances = $model::count();
-        if($instances == 0) {
+        if ($instances == 0) {
             $this->warn('There are no instances of this model');
+
             return;
         }
         $hashName = $model::first()->getHashName();
@@ -69,11 +71,11 @@ class PopulateModels extends Command
         $instancesMissing = $model::whereNull($hashName)->count();
 
         $bar = $this->output->createProgressBar($instancesMissing);
-        $bar->setFormat("\t" . $model . ': %current%/%max% ');
+        $bar->setFormat("\t".$model.': %current%/%max% ');
         $bar->setMessage($model);
         $bar->start();
 
-        if($instancesMissing > 0) {
+        if ($instancesMissing > 0) {
             $model::whereNull($hashName)->each(function ($instance) use ($bar) {
                 $instance->makeAndAssignHash();
                 $instance->save();
@@ -82,7 +84,6 @@ class PopulateModels extends Command
         }
 
         $bar->finish();
-
     }
 
     /*
@@ -92,13 +93,15 @@ class PopulateModels extends Command
      * @param   string  $model  The name of the model to handle
      * @output  void
      */
+
     /**
      * @param array|string|true $model
      */
     private function handleSingleModel($model)
     {
-        if(!class_exists($model)) {
+        if (!class_exists($model)) {
             $this->error(sprintf('Class %s does not exist', $model));
+
             return;
         }
 
@@ -106,8 +109,7 @@ class PopulateModels extends Command
 
         $this->doPopulateModel($model);
 
-        $this->info(PHP_EOL . 'Done');
-
+        $this->info(PHP_EOL.'Done');
     }
 
     /*
@@ -119,16 +121,16 @@ class PopulateModels extends Command
     {
         $this->info('Populating all existing models...');
 
-        foreach($this->getModelsWithTrait() as $model) {
+        foreach ($this->getModelsWithTrait() as $model) {
             $this->doPopulateModel($model);
         }
-        $this->info(PHP_EOL . 'Done');
+        $this->info(PHP_EOL.'Done');
     }
 
     public function handle()
     {
         $model = $this->option('model');
-        if($model == null) {
+        if ($model == null) {
             $this->handleAllModels();
         } else {
             $this->handleSingleModel($model);

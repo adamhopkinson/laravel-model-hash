@@ -16,7 +16,7 @@ class InstallLaravelModelHashPackage extends Command
         $this->info('Publishing configuration...');
         $this->call('vendor:publish', [
             '--provider' => 'AdamHopkinson\LaravelModelHash\LaravelModelHashServiceProvider',
-            '--tag'      => 'config'
+            '--tag'      => 'config',
         ]);
         $this->info('Done');
     }
