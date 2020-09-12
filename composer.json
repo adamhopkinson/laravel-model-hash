@@ -16,11 +16,13 @@
       "email": "adam.hopkinson@gmail.com"
     }
   ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "require": {
   },
   "require-dev": {
     "orchestra/testbench": "^4.0",
-    "phpunit/phpunit": "^9.2",
+    "phpunit/phpunit": "^9.0",
     "vimeo/psalm": "^3.12"
   },
   "autoload": {
