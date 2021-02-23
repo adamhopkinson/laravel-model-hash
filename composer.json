@@ -21,6 +21,7 @@
   "require": {
   },
   "require-dev": {
+    "laravel/framework": "^7.0 || ^8.0",
     "orchestra/testbench": "^4.0",
     "phpunit/phpunit": "^9.0",
     "vimeo/psalm": "^3.12"
