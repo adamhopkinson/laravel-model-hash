@@ -21,9 +21,9 @@
   "require": {
   },
   "require-dev": {
-    "orchestra/testbench": "^4.0",
+    "orchestra/testbench": "^6.13",
     "phpunit/phpunit": "^9.0",
-    "vimeo/psalm": "^3.12"
+    "vimeo/psalm": "^4"
   },
   "autoload": {
     "psr-4": {
