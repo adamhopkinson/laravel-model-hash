@@ -25,6 +25,9 @@ jobs:
     - name: Check PHP version
       run: php -v
 
+    - name: Update composer.json
+      run: composer update
+
     - name: Validate composer.json and composer.lock
       run: composer validate
 
