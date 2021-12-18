@@ -9,12 +9,16 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ["7.3", "7.4", "8.0", "8.1"]
-        laravel-versions: [6.*, 7.*, 8.*]
+        php-versions: [7.3, 7.4, 8.0, 8.1, 8.2]
+        laravel-versions: [6.*, 7.*, 8.*, 9.*]
         exclude:
           - php-versions: 8.1
             laravel-versions: 6.*
           - php-versions: 8.1
+            laravel-versions: 7.*
+          - php-versions: 8.2
+            laravel-versions: 6.*
+          - php-versions: 8.2
             laravel-versions: 7.*
 
     name: PHP v${{ matrix.php-versions }} / Laravel v${{ matrix.laravel-versions }} / OS ${{ matrix.operating-system }}
@@ -35,7 +39,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        composer require "laravel/framework:${{ matrix.laravel-versions }}" --no-interaction --no-update
+        composer require laravel/framework:${{ matrix.laravel-versions }} --no-interaction --no-update
         composer update --prefer-dist --no-interaction --no-suggest
 
     - name: Run test suite
