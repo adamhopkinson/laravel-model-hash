@@ -1,4 +1,4 @@
-name: Build & Test Status
+name: Build, Analyse & Test
 
 on: [workflow_dispatch, push, pull_request]
 
@@ -41,3 +41,6 @@ jobs:
 
     - name: Run test suite
       run: vendor/bin/phpunit
+
+    - name: Analyse with Psalm
+      run: vendor/bin/psalm
