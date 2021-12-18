@@ -5,6 +5,7 @@ namespace AdamHopkinson\LaravelModelHash\Console;
 use Illuminate\Console\Command;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -14,19 +15,19 @@ class PopulateModels extends Command
 
     protected $description = 'Populate hashes for existing models';
 
-    /*
+    /**
      * Uses reflection to get all models (within app_path())
      * which use the trait
      *
-     * @output  array   Array of fully-qualified model names
+     * @return Collection Collection of fully-qualified model names
      */
-    public function getModelsWithTrait()
+    public function getModelsWithTrait(): Collection
     {
         $models = collect(File::allFiles(app_path()))
             ->map(function ($item) {
                 $path = $item->getRelativePathName();
                 $class = sprintf(
-                    '\%s%s',
+                    '\%s%s::class',
                     app()->getNamespace(),
                     (string) Str::of($path)->replace('/', '\\')->replace('.php', '')
                 );
@@ -48,15 +49,12 @@ class PopulateModels extends Command
         return $models->values();
     }
 
-    /*
-     * Does the actual population of the model
-     *
-     * @param   string  $model  The name of the model to populate
-     * @output  void
-     */
-
     /**
-     * @param class-string $model
+     * Takes a class string (eg App/Models/Book::class) and
+     * populates the hash column for all existing instances
+     *
+     * @param string $model The 'class string' name of the model to populate
+     * @output void
      */
     private function doPopulateModel(string $model)
     {
@@ -86,16 +84,12 @@ class PopulateModels extends Command
         $bar->finish();
     }
 
-    /*
+    /**
      * Handles populating a single model,
      * specified in the command option --model or -M
      *
-     * @param   string  $model  The name of the model to handle
-     * @output  void
-     */
-
-    /**
-     * @param string $model
+     * @param string  $model  The name of the model to handle
+     * @return void
      */
     private function handleSingleModel(string $model)
     {
@@ -112,21 +106,27 @@ class PopulateModels extends Command
         $this->info(PHP_EOL.'Done');
     }
 
-    /*
+    /**
      * Handles populating all models
      *
-     * @output  void
+     * @return void
      */
     private function handleAllModels()
     {
         $this->info('Populating all existing models...');
 
-        foreach ($this->getModelsWithTrait() as $model) {
+        $this->getModelsWithTrait()->each(function (string $model) {
             $this->doPopulateModel($model);
-        }
+        });
+
         $this->info(PHP_EOL.'Done');
     }
 
+    /**
+     * Handles the command
+     *
+     * @return false|void
+     */
     public function handle()
     {
         $model = $this->option('model');
