@@ -11,7 +11,7 @@ class InstallLaravelModelHashPackage extends Command
     protected $description = 'Install Laravel Model Hash';
 
     /**
-     * Handle the command
+     * Handle the command.
      *
      * @return void
      */
