@@ -13,9 +13,7 @@ jobs:
         laravel-versions: [6.*, 7.*, 8.*]
         exclude:
           - php-versions: 8.1
-            laravel-versions: 6.*
-          - php-versions: 8.1
-            laravel-versions: 7.*
+            laravel-versions: [6.*, 7.*]
 
     name: PHP v${{ matrix.php-versions }} / Laravel v${{ matrix.laravel-versions }} / OS ${{ matrix.operating-system }}
     steps:
