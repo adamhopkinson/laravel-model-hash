@@ -10,8 +10,9 @@ jobs:
       matrix:
         operating-system: [ubuntu-latest]
         php-versions: ["7.3", "7.4", "8.0", "8.1"]
+        laravel-versions: [8.*, 6.*, 7.*]
 
-    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+    name: PHP v${{ matrix.php-versions }} / Laravel v${{ matrix.laravel-versions }} / OS ${{ matrix.operating-system }}
     steps:
 
     - name: Checkout
@@ -21,18 +22,16 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php-versions }}
+        extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+        coverage: none
 
     - name: Check PHP version
       run: php -v
 
-    - name: Update composer.json
-      run: composer update
-
-    - name: Validate composer.json and composer.lock
-      run: composer validate
-
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
+      run: |
+        composer require "laravel/framework:${{ matrix.laravel-versions }}" --no-interaction --no-update
+        composer update --prefer-dist --no-interaction --no-suggest
 
     - name: Run test suite
       run: vendor/bin/phpunit
