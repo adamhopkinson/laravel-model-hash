@@ -54,7 +54,8 @@ class PopulateModels extends Command
      * populates the hash column for all existing instances.
      *
      * @param string $model The 'class string' name of the model to populate
-     * @output void
+     *
+     * @return void
      */
     private function doPopulateModel(string $model)
     {

@@ -10,7 +10,12 @@ class InstallLaravelModelHashPackage extends Command
 
     protected $description = 'Install Laravel Model Hash';
 
-    public function handle()
+    /**
+     * Handle the command
+     *
+     * @return void
+     */
+    public function handle(): void
     {
         $this->info('Installing Laravel Model Hash..');
         $this->info('Publishing configuration...');
