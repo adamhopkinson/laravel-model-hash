@@ -1,6 +1,6 @@
 # laravel-model-hash
 
-Automatically create short hashes for your Laravel models.
+**Automatically create short hashes for your Laravel models, automatically use them in urls and back-fill existing models.**
 
 ![Build & Test Status](https://github.com/adamhopkinson/laravel-model-hash/workflows/Build%20&%20Test%20Status/badge.svg)
 
