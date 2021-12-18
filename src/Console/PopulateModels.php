@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class PopulateModels extends Command
 {
@@ -26,10 +27,9 @@ class PopulateModels extends Command
                 $path = $item->getRelativePathName();
                 $class = sprintf(
                     '\%s%s',
-                    Container::getInstance()->getNamespace(),
-                    strtr(substr($path, 0, strrpos($path, '.')), '/', '\\')
+                    app()->getNamespace(),
+                    (string) Str::of($path)->replace('/', '\\')->replace('.php', '')
                 );
-
                 return $class;
             })
             ->filter(function ($class) {
@@ -95,9 +95,9 @@ class PopulateModels extends Command
      */
 
     /**
-     * @param array|string|true $model
+     * @param string $model
      */
-    private function handleSingleModel($model)
+    private function handleSingleModel(string $model)
     {
         if (!class_exists($model)) {
             $this->error(sprintf('Class %s does not exist', $model));
@@ -130,6 +130,12 @@ class PopulateModels extends Command
     public function handle()
     {
         $model = $this->option('model');
+
+        if(gettype($model) !== 'string') {
+            $this->error('Please pass model as a string');
+            return false;
+        }
+
         if ($model == null) {
             $this->handleAllModels();
         } else {
