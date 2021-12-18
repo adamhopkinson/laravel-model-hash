@@ -3,7 +3,6 @@
 namespace AdamHopkinson\LaravelModelHash\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
@@ -17,7 +16,7 @@ class PopulateModels extends Command
 
     /**
      * Uses reflection to get all models (within app_path())
-     * which use the trait
+     * which use the trait.
      *
      * @return Collection Collection of fully-qualified model names
      */
@@ -31,6 +30,7 @@ class PopulateModels extends Command
                     app()->getNamespace(),
                     (string) Str::of($path)->replace('/', '\\')->replace('.php', '')
                 );
+
                 return $class;
             })
             ->filter(function ($class) {
@@ -51,7 +51,7 @@ class PopulateModels extends Command
 
     /**
      * Takes a class string (eg App/Models/Book::class) and
-     * populates the hash column for all existing instances
+     * populates the hash column for all existing instances.
      *
      * @param string $model The 'class string' name of the model to populate
      * @output void
@@ -86,9 +86,10 @@ class PopulateModels extends Command
 
     /**
      * Handles populating a single model,
-     * specified in the command option --model or -M
+     * specified in the command option --model or -M.
      *
-     * @param string  $model  The name of the model to handle
+     * @param string $model The name of the model to handle
+     *
      * @return void
      */
     private function handleSingleModel(string $model)
@@ -107,7 +108,7 @@ class PopulateModels extends Command
     }
 
     /**
-     * Handles populating all models
+     * Handles populating all models.
      *
      * @return void
      */
@@ -123,7 +124,7 @@ class PopulateModels extends Command
     }
 
     /**
-     * Handles the command
+     * Handles the command.
      *
      * @return false|void
      */
@@ -131,8 +132,9 @@ class PopulateModels extends Command
     {
         $model = $this->option('model');
 
-        if(gettype($model) !== 'string') {
+        if (gettype($model) !== 'string') {
             $this->error('Please pass model as a string');
+
             return false;
         }
 
