@@ -10,7 +10,7 @@ jobs:
       matrix:
         operating-system: [ubuntu-latest]
         php-versions: [7.3, 7.4, 8.0, 8.1, 8.2]
-        laravel-versions: [6.*, 7.*, 8.*, 9.*]
+        laravel-versions: [6.*, 7.*, 8.*]
         exclude:
           - php-versions: 8.1
             laravel-versions: 6.*
